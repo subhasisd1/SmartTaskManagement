@@ -19,8 +19,9 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IDapperContext, DapperContext>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>(); // Register the UnitOfWork implementation for dependency injection
+        services.AddScoped<IDapperContext, DapperContext>(); // Register the DapperContext implementation for dependency injection
+        services.AddScoped<IProjectQueries, ProjectQueries>();
         services.AddScoped<DapperRepository>();
 
         return services;

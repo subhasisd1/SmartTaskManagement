@@ -1,18 +1,20 @@
+using FluentValidation;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger; // Ensure this namespace is included
-using SmartTaskManagement.Persistence;
+using SmartTaskManagement.API.Extensions;
 using SmartTaskManagement.Application;
+using SmartTaskManagement.Persistence;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddValidatorsFromAssembly(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
 
 
 
 // Add services
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
@@ -33,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseGlobalExceptionHandler();
 
 app.UseAuthorization();
 

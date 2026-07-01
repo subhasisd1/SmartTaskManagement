@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dapper;
+using SmartTaskManagement.Application.DTOs.Project;
+using SmartTaskManagement.Application.Interfaces;
+using SmartTaskManagement.Persistence.Dapper;
 
-namespace SmartTaskManagement.Persistence.Queries
+public class ProjectQueries : IProjectQueries
 {
-    internal class ProjectQueries
+    private readonly IDapperContext _context;
+
+    public ProjectQueries(IDapperContext context)
     {
+        _context = context;
+    }
+
+    public async Task<IEnumerable<ProjectDto>> GetProjectsAsync()
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = @"
+            SELECT
+                Id,
+                Name,
+                Description
+            FROM Projects";
+
+        return await connection.QueryAsync<ProjectDto>(sql);
     }
 }

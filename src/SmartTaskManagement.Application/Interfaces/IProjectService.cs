@@ -10,7 +10,7 @@ public interface IProjectService
 
     Task<ProjectDto> CreateAsync(CreateProjectDto dto);
 
-    Task UpdateAsync(UpdateProjectDto dto);
+    Task<string> UpdateAsync(UpdateProjectDto dto);
 
-    Task DeleteAsync(Guid id);
+    Task<string> DeleteAsync(Guid id);
 }
