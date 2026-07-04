@@ -1,0 +1,21 @@
+info:
+  name: Delete Project
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: "{{BaseUrl}}/projects/A10F7248-8682-4DFA-969F-07EC44BA99E4"
+  body:
+    type: json
+    data: |-
+      {
+        "guid": "A10F7248-8682-4DFA-969F-07EC44BA99E4"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
