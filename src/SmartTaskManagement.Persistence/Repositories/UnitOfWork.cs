@@ -1,8 +1,7 @@
 ﻿using SmartTaskManagement.Application.Interfaces;
 using SmartTaskManagement.Domain.Entities;
 using SmartTaskManagement.Persistence.Contexts;
-
-namespace SmartTaskManagement.Persistence.Repositories;
+using SmartTaskManagement.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
@@ -16,9 +15,8 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
 
-        Projects = new GenericRepository<Project>(context);
-
-        Tasks = new GenericRepository<TaskItem>(context);
+        Projects = new GenericRepository<Project>(_context);
+        Tasks = new GenericRepository<TaskItem>(_context);
     }
 
     public async Task<int> CompleteAsync()

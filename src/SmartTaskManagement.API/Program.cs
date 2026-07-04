@@ -3,13 +3,13 @@ using Microsoft.OpenApi.Models;
 using SmartTaskManagement.API.Extensions;
 using SmartTaskManagement.Application;
 using SmartTaskManagement.Persistence;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddValidatorsFromAssembly(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
+builder.Services.AddAutoMapper(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
 
 
 

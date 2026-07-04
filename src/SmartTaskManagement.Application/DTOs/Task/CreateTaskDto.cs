@@ -1,12 +1,12 @@
 ﻿using SmartTaskManagement.Domain.Enums;
 
-namespace SmartTaskManagement.Domain.Entities;
-
-public class TaskItem : BaseEntity
+public class CreateTaskDto
 {
     public string Title { get; set; } = string.Empty;
 
     public string? Description { get; set; }
+
+    public Guid ProjectId { get; set; }
 
     public TaskItemStatus Status { get; set; }
 
@@ -15,11 +15,4 @@ public class TaskItem : BaseEntity
     public DateTime DueDate { get; set; }
 
     public int EstimatedHours { get; set; }
-
-    public int ActualHours { get; set; }
-
-    public Guid ProjectId { get; set; }
-
-    public Project Project { get; set; } = null!;
-
 }

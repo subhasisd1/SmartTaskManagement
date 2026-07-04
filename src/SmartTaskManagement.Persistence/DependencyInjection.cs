@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartTaskManagement.Application.Interfaces;
 using SmartTaskManagement.Persistence.Contexts;
 using SmartTaskManagement.Persistence.Dapper;
+using SmartTaskManagement.Persistence.Queries;
 using SmartTaskManagement.Persistence.Repositories;
 
 namespace SmartTaskManagement.Persistence;
@@ -22,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>(); // Register the UnitOfWork implementation for dependency injection
         services.AddScoped<IDapperContext, DapperContext>(); // Register the DapperContext implementation for dependency injection
         services.AddScoped<IProjectQueries, ProjectQueries>();
+        services.AddScoped<ITaskQueries, TaskQueries>();
         services.AddScoped<DapperRepository>();
 
         return services;
