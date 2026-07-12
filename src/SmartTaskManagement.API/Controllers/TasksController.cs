@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartTaskManagement.Application.Common.Pagination;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,6 +16,14 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _taskService.GetAllAsync());
+    }
+
+    [HttpGet("filter")]
+    public async Task<IActionResult> GetAll([FromQuery] TaskFilter filter)
+    {
+        var result = await _taskService.GetAllAsync(filter);
+
+        return Ok(result);
     }
 
     [HttpGet("{id}")]

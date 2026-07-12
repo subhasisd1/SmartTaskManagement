@@ -1,8 +1,14 @@
-﻿using SmartTaskManagement.Application.DTOs.Task;
+﻿using SmartTaskManagement.Application.Common.Pagination;
+using SmartTaskManagement.Application.DTOs.Task;
 
 public interface ITaskService
 {
     Task<IEnumerable<TaskDto>> GetAllAsync();
+
+    //Task<IEnumerable<TaskDto>> GetAllAsync(TaskFilter filter);
+
+    Task<PagedResult<TaskDto>> GetAllAsync(TaskFilter filter);
+
 
     Task<TaskDto?> GetByIdAsync(Guid id);
 

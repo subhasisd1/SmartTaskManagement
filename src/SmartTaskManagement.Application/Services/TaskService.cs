@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SmartTaskManagement.Application.Common.Pagination;
 using SmartTaskManagement.Application.DTOs.Task;
 using SmartTaskManagement.Application.Exceptions;
 using SmartTaskManagement.Application.Interfaces;
@@ -62,9 +63,15 @@ public class TaskService : ITaskService
         };
     }
 
+
     public async Task<IEnumerable<TaskDto>> GetAllAsync()
     {
         return await _taskQueries.GetTasksAsync();
+    }
+
+    public async Task<PagedResult<TaskDto>> GetAllAsync(TaskFilter filter)
+    {
+        return await _taskQueries.GetTasksAsync(filter);
     }
 
     public async Task<TaskDto?> GetByIdAsync(Guid id)
