@@ -14,6 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Project> Projects => Set<Project>();
 
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
+    public DbSet<Payment> Payments => Set<Payment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -28,6 +28,8 @@ public static class DependencyInjection
         services.AddScoped<IDapperContext, DapperContext>(); // Register the DapperContext implementation for dependency injection
         services.AddScoped<IProjectQueries, ProjectQueries>();
         services.AddScoped<ITaskQueries, TaskQueries>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+
         services.AddScoped<DapperRepository>();
 
         return services;

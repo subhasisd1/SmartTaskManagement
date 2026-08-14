@@ -11,6 +11,11 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IProjectService, ProjectService>();
         services.AddScoped<ITaskService, TaskService>();
+        services.AddScoped<IPaymentService, PaymentService>();
+
+
+        //builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
 
         return services;
     }

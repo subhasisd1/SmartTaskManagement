@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
 
     [HttpGet("")]
     public async Task<IActionResult> Get()
-    {
+    {  
         return Ok("HEllo AUTH");
     }
 }
