@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SmartTaskManagement.Application.Interfaces;
+using SmartTaskManagement.Domain.Entities;
 using SmartTaskManagement.Persistence.Contexts;
 using SmartTaskManagement.Persistence.Dapper;
 using SmartTaskManagement.Persistence.Queries;
@@ -18,6 +20,8 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
+
+       
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>(); // Register the UnitOfWork implementation for dependency injection

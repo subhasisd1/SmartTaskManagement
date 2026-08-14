@@ -1,8 +1,11 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using SmartTaskManagement.API.Extensions;
 using SmartTaskManagement.Application;
+using SmartTaskManagement.Domain.Entities;
 using SmartTaskManagement.Persistence;
+using SmartTaskManagement.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +14,11 @@ builder.Services.AddApplication();
 builder.Services.AddValidatorsFromAssembly(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
 builder.Services.AddAutoMapper(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
 
-
+// Identity
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 // Add services
 builder.Services.AddControllers();
