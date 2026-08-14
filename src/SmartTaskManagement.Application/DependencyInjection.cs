@@ -13,6 +13,9 @@ public static class DependencyInjection
         services.AddScoped<ITaskService, TaskService>();
         services.AddScoped<IPaymentService, PaymentService>();
 
+        services.AddTransient<IEmailService, EmailNotificationService>();
+        services.AddTransient<ISmsService, SmsNotificationService>();
+
 
         //builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 

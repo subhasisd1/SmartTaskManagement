@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SmartTaskManagement.API.Extensions;
+using SmartTaskManagement.API.Services;
 using SmartTaskManagement.Application;
+using SmartTaskManagement.Application.Interfaces;
 using SmartTaskManagement.Domain.Entities;
 using SmartTaskManagement.Persistence;
 using SmartTaskManagement.Persistence.Contexts;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +49,12 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddValidatorsFromAssembly(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
 builder.Services.AddAutoMapper(typeof(SmartTaskManagement.Application.DependencyInjection).Assembly);
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<
+    ICurrentUserService,
+    CurrentUserService>();
 
 // Identity
 builder.Services

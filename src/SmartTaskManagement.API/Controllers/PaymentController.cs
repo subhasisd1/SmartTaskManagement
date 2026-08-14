@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartTaskManagement.Application.DTOs.Payment;
 using SmartTaskManagement.Application.Interfaces;
+using System.Security.Claims;
 
 namespace SmartTaskManagement.API.Controllers
 {
@@ -17,16 +18,13 @@ namespace SmartTaskManagement.API.Controllers
             _paymentService = paymentService;
         }
 
+        [HttpPost("pay")]
         [Authorize]
-        [HttpPost]
         public async Task<IActionResult> CreatePayment(
     CreatePaymentDto model)
         {
-            foreach (var claim in User.Claims)
-            {
-                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
-            }
-            var userId = User.FindFirst("sub")?.Value;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userId = User.FindFirst("sub")?.Value;
 
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();

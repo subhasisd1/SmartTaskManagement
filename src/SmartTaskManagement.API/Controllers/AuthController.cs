@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartTaskManagement.Application.DTOs.Auth;
 using SmartTaskManagement.Application.Interfaces;
+using System.Security.Claims;
 
 namespace SmartTaskManagement.API.Controllers;
 
@@ -62,5 +64,17 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Get()
     {  
         return Ok("HEllo AUTH");
+    }
+
+    //[Authorize]
+    [HttpGet("test-auth")]
+    public IActionResult TestAuth()
+    {
+        return Ok(new
+        {
+            Authenticated = User.Identity?.IsAuthenticated,
+            UserId = User.FindFirstValue(
+                ClaimTypes.NameIdentifier)
+        });
     }
 }
