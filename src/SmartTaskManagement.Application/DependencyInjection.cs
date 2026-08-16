@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SmartTaskManagement.Application.Adapters;
 using SmartTaskManagement.Application.Decorators;
 using SmartTaskManagement.Application.DTOs.Configuration;
 using SmartTaskManagement.Application.Factories;
@@ -71,6 +72,7 @@ public static class DependencyInjection
             sp.GetRequiredService<PaymentSubject>());
 
 
+
         // ✅ Correct
         services.AddScoped<PaymentService>();
 
@@ -87,6 +89,12 @@ public static class DependencyInjection
                 paymentService,
                 logger);
         });
+
+        services.AddScoped<RazorpayClient>();
+        services.AddScoped<StripeClient>();
+
+        services.AddScoped<RazorpayPaymentAdapter>();
+        services.AddScoped<StripePaymentAdapter>();
 
 
         return services;
