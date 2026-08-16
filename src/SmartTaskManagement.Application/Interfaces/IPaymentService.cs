@@ -12,7 +12,8 @@ namespace SmartTaskManagement.Application.Interfaces
         Task<Payment> CreatePaymentAsync(
             int orderId,
             string userId,
-            decimal amount);
+            decimal amount,
+            string payMethod);
 
         Task<bool> ProcessPaymentAsync(
             int paymentId);

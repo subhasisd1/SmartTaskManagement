@@ -2,6 +2,7 @@
 using SmartTaskManagement.Application.Common.Pagination;
 using SmartTaskManagement.Application.DTOs.Task;
 using SmartTaskManagement.Application.Exceptions;
+using SmartTaskManagement.Application.Factories;
 using SmartTaskManagement.Application.Interfaces;
 using SmartTaskManagement.Domain.Entities;
 
@@ -10,26 +11,35 @@ namespace SmartTaskManagement.Application.Services;
 public class PaymentService : IPaymentService
 {
     private readonly IPaymentRepository _paymentRepository;
+    private readonly INotificationFactory _notificationFactory;
 
-    public PaymentService(
-        IPaymentRepository paymentRepository)
+
+    public PaymentService(IPaymentRepository paymentRepository, INotificationFactory notificationFactory)
     {
         _paymentRepository = paymentRepository;
+        _notificationFactory = notificationFactory;
     }
 
     public async Task<Payment> CreatePaymentAsync(
         int orderId,
         string userId,
-        decimal amount)
+        decimal amount,
+        string paymentMethod)
     {
+       
+        //    var paymentId =
+        //$"PAY-{userId.ToString()[..4].ToUpper()}-{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid():N[..6].ToUpper()}";
+        var paymentId = (orderId * 1000) + DateTime.UtcNow.Millisecond;
         var payment = new Payment
         {
+            PaymentId = paymentId,
             OrderId = orderId,
             UserId = userId,
             Amount = amount,
             Currency = "INR",
             Status = "Pending",
             Provider = "Razorpay",
+            PaymentMethod = paymentMethod,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -55,6 +65,15 @@ public class PaymentService : IPaymentService
         payment.UpdatedAt = DateTime.UtcNow;
 
         await _paymentRepository.UpdateAsync(payment);
+
+        // Send notification after successful payment
+        var notification =
+            _notificationFactory.Create("email");
+
+        await notification.SendAsync(
+            "subhasispattanaik281@gmail.com",
+            $"Payment successful. Transaction ID: {payment.TransactionId}");
+
 
         return true;
     }

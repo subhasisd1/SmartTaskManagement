@@ -37,9 +37,9 @@ public class ExceptionMiddleware
 
         switch (exception)
         {
-            case NotFoundException:
-                context.Response.StatusCode = StatusCodes.Status404NotFound;
-                response.StatusCode = 404;
+            case ConflictException:
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                response.StatusCode = 409;
                 break;
 
             case BadRequestException:
@@ -47,9 +47,19 @@ public class ExceptionMiddleware
                 response.StatusCode = 400;
                 break;
 
+            case InvalidOperationException:
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                response.StatusCode = 400;
+                break;
+
             case AppValidationException:
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 response.StatusCode = 400;
+                break;
+
+            case NotFoundException:
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                response.StatusCode = 404;
                 break;
 
             case UnauthorizedException:

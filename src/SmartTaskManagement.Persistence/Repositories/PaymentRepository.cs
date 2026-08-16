@@ -1,7 +1,8 @@
-﻿using SmartTaskManagement.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartTaskManagement.Application.Exceptions;
+using SmartTaskManagement.Application.Interfaces;
 using SmartTaskManagement.Domain.Entities;
 using SmartTaskManagement.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace SmartTaskManagement.Persistence.Repositories
 {
@@ -36,6 +37,15 @@ namespace SmartTaskManagement.Persistence.Repositories
 
         public async Task AddAsync(Payment payment)
         {
+            var existingPayment = await _context.Payments
+                                    .AnyAsync(p => p.OrderId == payment.OrderId);
+
+            if (existingPayment)
+            {
+                throw new ConflictException(
+                    $"Payment already exists for OrderId: {payment.OrderId}");
+            }
+
             await _context.Payments.AddAsync(payment);
             await _context.SaveChangesAsync();
         }

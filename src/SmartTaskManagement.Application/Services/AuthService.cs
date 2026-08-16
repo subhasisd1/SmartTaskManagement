@@ -89,7 +89,7 @@ public class AuthService : IAuthService
             SecurityAlgorithms.HmacSha256);
 
         // 7. Token expiration
-        var expiration = DateTime.UtcNow.AddHours(1);
+        var expiration = DateTime.UtcNow.AddMinutes(15);
 
         // 8. Create JWT
         var jwtToken = new JwtSecurityToken(

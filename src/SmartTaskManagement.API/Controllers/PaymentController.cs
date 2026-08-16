@@ -32,7 +32,8 @@ namespace SmartTaskManagement.API.Controllers
             var payment = await _paymentService.CreatePaymentAsync(
                 model.OrderId,
                 userId,
-                model.Amount);
+                model.Amount,
+                model.PaymentMethod);
 
             return Ok(payment);
         }

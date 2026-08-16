@@ -66,7 +66,7 @@ public class AuthController : ControllerBase
         return Ok("HEllo AUTH");
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpGet("test-auth")]
     public IActionResult TestAuth()
     {
