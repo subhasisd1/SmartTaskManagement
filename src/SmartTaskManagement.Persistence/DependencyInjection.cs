@@ -21,7 +21,18 @@ public static class DependencyInjection
             options.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
 
-       
+
+        services.AddDbContext<MySqlDbContext>(options =>
+        {
+            var connectionString =
+                configuration.GetConnectionString("MySqlConnection");
+
+            options.UseMySql(
+                connectionString,
+                ServerVersion.AutoDetect(connectionString));
+        });
+
+
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>(); // Register the UnitOfWork implementation for dependency injection

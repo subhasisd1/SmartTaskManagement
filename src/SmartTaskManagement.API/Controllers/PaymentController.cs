@@ -38,6 +38,19 @@ namespace SmartTaskManagement.API.Controllers
             return Ok(payment);
         }
 
+        [HttpPost("process")]
+        [Authorize]
+        public async Task<IActionResult> ProcessPayment([FromBody] int paymentId)
+        {
+            var result =
+                await _paymentService.ProcessPaymentAsync(paymentId);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPayment(int id)
         {

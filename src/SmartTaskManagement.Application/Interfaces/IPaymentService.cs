@@ -1,4 +1,5 @@
-﻿using SmartTaskManagement.Domain.Entities;
+﻿using SmartTaskManagement.Application.DTOs.Payment;
+using SmartTaskManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,7 @@ namespace SmartTaskManagement.Application.Interfaces
             decimal amount,
             string payMethod);
 
-        Task<bool> ProcessPaymentAsync(
-            int paymentId);
+        Task<ProcessPaymentResponseDto?> ProcessPaymentAsync(int paymentId);
 
         Task<Payment?> GetPaymentAsync(int paymentId);
     }

@@ -10,12 +10,12 @@ namespace SmartTaskManagement.Application.Factories
 {
     public class NotificationFactory : INotificationFactory
     {
-        private readonly EmailNotificationService _emailService;
-        private readonly SmsNotificationService _smsService;
+        private readonly IEmailService _emailService;
+        private readonly ISmsService _smsService;
 
         public NotificationFactory(
-            EmailNotificationService emailService,
-            SmsNotificationService smsService)
+        IEmailService emailService,
+        ISmsService smsService)
         {
             _emailService = emailService;
             _smsService = smsService;
